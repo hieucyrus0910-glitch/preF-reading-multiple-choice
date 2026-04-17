@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Air Conditioning - Interactive Learning</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Air Conditioning - Interactive Learning for Beginners</h1>
+
+    <!-- Navigation -->
+    <div class="nav">
+        <button class="active" id="startReading">Start Reading</button>
+        <button id="vocabPractice">Practice Vocabulary</button>
+        <button id="grammarFocus">Do Grammar</button>
+        <button id="mcqQuestions">Answer Questions</button>
+        <button id="speakingPractice">Speaking Practice</button>
+    </div>
+
+    <!-- Reading Section -->
+    <div id="readingSection" class="content">
+        <h2>Air Conditioning</h2>
+        <p>Willis Carrier designed the first air-conditioning unit in 1902, just a year after graduating from Cornell University with a Masters in Engineering.</p>
+        <div class="toggle-switch">
+            <label>Toggle Vietnamese Support</label>
+            <input type="checkbox" id="toggleVietnamese">
+        </div>
+        <!-- Add more text and Vietnamese explanations as needed -->
+    </div>
+
+    <!-- Vocabulary Practice -->
+    <div id="vocabPractice" class="content hidden">
+        <!-- Add vocabulary practice content here -->
+    </div>
+
+    <!-- Grammar Focus -->
+    <div id="grammarFocus" class="content hidden">
+        <!-- Add grammar focus content here -->
+    </div>
+
+    <!-- Reading Comprehension (MCQ) -->
+    <div id="mcqQuestions" class="content hidden">
+        <!-- Add MCQ content here -->
+    </div>
+
+    <!-- Speaking Practice -->
+    <div id="speakingPractice" class="content hidden">
+        <!-- Add speaking practice content here -->
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
