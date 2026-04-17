@@ -1,217 +1,491 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Air Conditioning - Reading Practice</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #f4f4f9;
-        }
-        .container {
-            width: 80%;
-            max-width: 600px;
-            margin: 20px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .header {
-            text-align: center;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        .section {
-            margin-bottom: 20px;
-        }
-        .question {
-            font-weight: bold;
-        }
-        .option {
-            margin-left: 20px;
-        }
-        .feedback {
-            color: red;
-            margin-top: 10px;
-        }
-        .correct {
-            color: green;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Air Conditioning English Learning App</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/@chakra-ui/core@latest/dist/css/chakra-ui.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+  </style>
 </head>
-<body>
-    <div class="container">
-        <div class="header">Air Conditioning - Reading Practice</div>
-        
-        <!-- A. Reading Section -->
-        <div class="section">
-            <button id="toggleVietnamese">Toggle Vietnamese Support</button>
-            <div id="passage" class="content">
-                <!-- Remove the reading passage here -->
-            </div>
+<body class="bg-gray-100">
+  <div id="root" class="p-4"></div>
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/@chakra-ui/core@latest/dist/chakra-ui-core.min.js"></script>
+  <script type="text/babel">
+    const { Tabs, TabList, TabPanels, Tab, TabPanel } = ChakraUI.React;
+
+    const vocabularyData = [
+      {
+        word: "invention",
+        definition: "something new that people create",
+        vietnamese: "phát minh",
+        exampleSentence: "The air conditioner is a useful invention.",
+        quizQuestion: "What is an invention?",
+        options: [
+          { id: 'A', label: "something new created by people", correct: true },
+          { id: 'B', label: "a type of job" },
+          { id: 'C', label: "a place" }
+        ]
+      },
+      {
+        word: "engineer",
+        definition: "a person who designs and makes machines or large structures",
+        vietnamese: "kỹ sư",
+        exampleSentence: "Willis Carrier was an engineer.",
+        quizQuestion: "What is an engineer?",
+        options: [
+          { id: 'A', label: "a person who designs and makes machines or large structures", correct: true },
+          { id: 'B', label: "a teacher" },
+          { id: 'C', label: "a doctor" }
+        ]
+      },
+      {
+        word: "humidity",
+        definition: "the amount of water vapor in the air",
+        vietnamese: "độ ẩm",
+        exampleSentence: "High humidity makes the air feel heavy.",
+        quizQuestion: "What is humidity?",
+        options: [
+          { id: 'A', label: "the amount of water vapor in the air", correct: true },
+          { id: 'B', label: "the temperature of the air" },
+          { id: 'C', label: "the wind speed" }
+        ]
+      },
+      {
+        word: "temperature",
+        definition: "how hot or cold something is",
+        vietnamese: "nhiệt độ",
+        exampleSentence: "The room temperature was too high.",
+        quizQuestion: "What is temperature?",
+        options: [
+          { id: 'A', label: "how hot or cold something is", correct: true },
+          { id: 'B', label: "the level of humidity" },
+          { id: 'C', label: "the speed of the wind" }
+        ]
+      },
+      {
+        word: "industrial",
+        definition: "related to factories or the production of goods",
+        vietnamese: "công nghiệp",
+        exampleSentence: "Industrial cities have many factories.",
+        quizQuestion: "What does industrial mean?",
+        options: [
+          { id: 'A', label: "related to factories or the production of goods", correct: true },
+          { id: 'B', label: "related to agriculture" },
+          { id: 'C', label: "related to computers" }
+        ]
+      },
+      {
+        word: "install",
+        definition: "to put something in place or set up",
+        vietnamese: "cài đặt",
+        exampleSentence: "They install air conditioners in offices.",
+        quizQuestion: "What does install mean?",
+        options: [
+          { id: 'A', label: "to put something in place or set up", correct: true },
+          { id: 'B', label: "to remove something" },
+          { id: 'C', label: "to repair something" }
+        ]
+      },
+      {
+        word: "device",
+        definition: "an object or machine designed to do something",
+        vietnamese: "thiết bị",
+        exampleSentence: "An air conditioner is a device.",
+        quizQuestion: "What is a device?",
+        options: [
+          { id: 'A', label: "an object or machine designed to do something", correct: true },
+          { id: 'B', label: "a building" },
+          { id: 'C', label: "a book" }
+        ]
+      },
+      {
+        word: "productivity",
+        definition: "how efficiently something is done or produced",
+        vietnamese: "tính năng suất",
+        exampleSentence: "Air conditioning increases productivity in offices.",
+        quizQuestion: "What is productivity?",
+        options: [
+          { id: 'A', label: "how efficiently something is done or produced", correct: true },
+          { id: 'B', label: "how much money is earned" },
+          { id: 'C', label: "how fast something goes" }
+        ]
+      },
+      {
+        word: "efficiency",
+        definition: "the ability to use something in the best way possible",
+        vietnamese: "hiệu quả",
+        exampleSentence: "Efficient use of energy saves money.",
+        quizQuestion: "What is efficiency?",
+        options: [
+          { id: 'A', label: "the ability to use something in the best way possible", correct: true },
+          { id: 'B', label: "the ability to change something" },
+          { id: 'C', label: "the ability to make something big" }
+        ]
+      },
+      {
+        word: "environmentalist",
+        definition: "a person who works to protect the environment",
+        vietnamese: "người bảo vệ môi trường",
+        exampleSentence: "He is an environmentalist who campaigns against air pollution.",
+        quizQuestion: "What is an environmentalist?",
+        options: [
+          { id: 'A', label: "a person who works to protect the environment", correct: true },
+          { id: 'B', label: "a person who writes novels" },
+          { id: 'C', label: "a person who cooks food" }
+        ]
+      },
+    ];
+
+    const grammarQuestions = [
+      {
+        question: "Carrier ___ the first air-conditioning unit in 1902.",
+        type: 'Past Simple',
+        options: ['design', 'designed', 'designs'],
+        correctAnswer: 'B',
+        explanation: {
+          en: "This is past simple because it happened in 1902.",
+          vn: "Đây là thì quá khứ đơn vì sự việc xảy ra trong quá khứ."
+        }
+      },
+      {
+        question: "The air conditioner ___ in the room.",
+        type: 'Passive Voice',
+        options: ['was installed', 'is installed', 'installs'],
+        correctAnswer: 'A',
+        explanation: {
+          en: "This is passive voice because the focus is on the installation, not the person installing.",
+          vn: "Đây là thì bị động vì trọng tâm ở việc lắp đặt, không phải người lắp đặt."
+        }
+      },
+      {
+        question: "The research ___ in the 1940s-50s.",
+        type: 'Passive Voice',
+        options: ['was carried out', 'carry out', 'carries out'],
+        correctAnswer: 'A',
+        explanation: {
+          en: "This is passive voice because the focus is on the research, not who carried it out.",
+          vn: "Đây là thì bị động vì trọng tâm ở việc nghiên cứu, không phải ai thực hiện."
+        }
+      },
+      {
+        question: "Because heat and moisture affected the paper, Carrier ___ the air conditioner.",
+        type: 'Cause-effect',
+        options: ['installed', 'was installed', 'install'],
+        correctAnswer: 'A',
+        explanation: {
+          en: "This shows cause and effect using 'because'.",
+          vn: "Đây thể hiện mối quan hệ nguyên nhân-kết quả sử dụng 'because'."
+        }
+      },
+      {
+        question: "Carrier designed the air conditioner ____. The workers were more productive.",
+        type: 'Cause-effect',
+        options: ['so', 'because', 'as a result'],
+        correctAnswer: 'C',
+        explanation: {
+          en: "This shows cause and effect using 'as a result'.",
+          vn: "Đây thể hiện mối quan hệ nguyên nhân-kết quả sử dụng 'as a result'."
+        }
+      },
+      {
+        question: "The air conditioner increased productivity. It was ____ than before.",
+        type: 'Comparative',
+        options: ['more efficient', 'most efficient', 'efficiency'],
+        correctAnswer: 'A',
+        explanation: {
+          en: "This uses a comparative to show improvement.",
+          vn: "Đây sử dụng từ so sánh để thể hiện cải thiện."
+        }
+      },
+      {
+        question: "The new air conditioner was ____ than the old one.",
+        type: 'Comparative',
+        options: ['better quality', 'best quality', 'quality'],
+        correctAnswer: 'A',
+        explanation: {
+          en: "This uses a comparative to show improvement.",
+          vn: "Đây sử dụng từ so sánh để thể hiện cải thiện."
+        }
+      },
+      {
+        question: "The office became more comfortable. The workers were ____.",
+        type: 'Mixed',
+        options: ['more productive', 'most productive', 'productive'],
+        correctAnswer: 'A',
+        explanation: {
+          en: "This uses a comparative to show improvement.",
+          vn: "Đây sử dụng từ so sánh để thể hiện cải thiện."
+        }
+      },
+    ];
+
+    const readingQuestions = [
+      {
+        question: "Why did Carrier invent air conditioning?",
+        options: ['to make workers comfortable', 'to solve factory printing problems', 'to build homes', 'to sell machines'],
+        correctAnswer: 'B',
+        explanation: {
+          en: "It was to fix problems in a printing factory caused by heat and humidity.",
+          vn: "Ông tạo ra máy điều hòa để giải quyết vấn đề trong nhà máy in do nhiệt độ và độ ẩm gây ra."
+        }
+      },
+      {
+        question: "Why were home air conditioners not popular at first?",
+        options: ['they were too expensive', 'people did not understand them', 'they broke easily', 'they looked ugly'],
+        correctAnswer: 'A',
+        explanation: {
+          en: "Home air conditioners were too expensive at first.",
+          vn: "Máy điều hòa gia đình quá đắt đỏ ban đầu."
+        }
+      },
+      {
+        question: "Why did employers initially refuse air conditioning?",
+        options: ['it was too noisy', 'it used too much energy', 'it was not effective', 'it was too expensive'],
+        correctAnswer: 'B',
+        explanation: {
+          en: "Employers initially refused air conditioning because it used too much energy.",
+          vn: "Nhà tuyển dụng ban đầu từ chối điều hòa vì nó tiêu thụ quá nhiều điện."
+        }
+      },
+      {
+        question: "What was the purpose of research in the 1940s–50s?",
+        options: ['to improve efficiency', 'to make it look better', 'to reduce costs', 'to increase sales'],
+        correctAnswer: 'A',
+        explanation: {
+          en: "The purpose of research in the 1940s-50s was to improve efficiency.",
+          vn: "Mục đích của nghiên cứu trong thập kỷ 1940-50 là cải thiện hiệu quả."
+        }
+      },
+      {
+        question: "What is Jed Brown’s opinion?",
+        options: ['air conditioning is bad for the environment', 'air conditioning saves money', 'air conditioning makes people comfortable', 'air conditioning is unnecessary'],
+        correctAnswer: 'A',
+        explanation: {
+          en: "Jed Brown thinks air conditioning is bad for the environment.",
+          vn: "Jed Brown cho rằng điều hòa không tốt cho môi trường."
+        }
+      },
+    ];
+
+    const speakingData = [
+      {
+        question: "Can you summarize the passage about air conditioning in simple English?",
+        sampleAnswer: "Air conditioning was invented by Willis Carrier in 1902. He made it to solve problems in a printing factory. Later, air conditioning became popular in offices, cinemas, and homes. It helps people work better, but it can also affect the environment."
+      },
+      {
+        question: "Do you like air conditioning? Why or why not?",
+        sampleAnswer: "Yes, I like air conditioning because it makes me feel comfortable in hot weather. However, I think it uses a lot of electricity."
+      },
+      {
+        question: "How is air conditioning used in your country?",
+        sampleAnswer: "In Vietnam, many houses, offices, and shops use air conditioning because it is very hot in summer."
+      },
+      {
+        question: "Do you think air conditioning is good or bad for the environment?",
+        sampleAnswer: "Air conditioning is good for people but it is bad for the environment because it can increase global warming."
+      },
+      {
+        question: "Why do you think air conditioning increased productivity in offices?",
+        sampleAnswer: "It increases productivity because people can work better when they feel comfortable and not too hot."
+      },
+    ];
+
+    const VocabularySection = () => {
+      const [currentWordIndex, setCurrentWordIndex] = React.useState(0);
+      const currentWord = vocabularyData[currentWordIndex];
+
+      const handleNext = () => {
+        setCurrentWordIndex((prev) => (prev < vocabularyData.length - 1 ? prev + 1 : 0));
+      };
+
+      return (
+        <div className="p-4">
+          <h2>Vocabulary</h2>
+          <div className="mb-4">
+            <p><strong>Word:</strong> {currentWord.word}</p>
+            <p><strong>Definition:</strong> {currentWord.definition} ({currentWord.vietnamese})</p>
+            <p><strong>Example:</strong> {currentWord.exampleSentence}</p>
+          </div>
+          <h4>Quiz:</h4>
+          {currentWord.quizQuestion}
+          <div className="mb-4">
+            {currentWord.options.map((option) => (
+              <label key={option.id} className="block">
+                <input
+                  type="radio"
+                  name="quizOption"
+                  value={option.id}
+                />
+                {option.label} {option.correct ? '✔' : ''}
+              </label>
+            ))}
+          </div>
+          <button onClick={handleNext} className="bg-blue-500 text-white px-4 py-2 rounded">Next Word</button>
         </div>
+      );
+    };
 
-        <!-- B. Vocabulary Practice -->
-        <div class="section">
-            <h2>B. Vocabulary Practice</h2>
-            <div class="vocabulary-item">
-                <p>Word: <span id="word1">air-conditioning</span></p>
-                <p>Meaning: (English) A system for controlling the temperature and humidity of a room or building.</p>
-                <p>Meaning: (Việt) Một hệ thống điều khiển nhiệt độ và độ ẩm trong một phòng hoặc tòa nhà.</p>
-                <p>Example: Willis Carrier designed the first air-conditioning unit in 1902.</p>
-                <div>
-                    Match word ↔ meaning:
-                    <input type="text" id="v1-translation" placeholder="Translation">
-                </div>
-                <button onclick="checkVocabulary('v1')">Check</button>
-                <div id="v1-feedback" class="feedback"></div>
+    const GrammarSection = () => {
+      const [currentQuestionIndex, setCurrentQuestionIndex] = React.useState(0);
+      const currentQuestion = grammarQuestions[currentQuestionIndex];
+
+      const handleNext = () => {
+        setCurrentQuestionIndex((prev) => (prev < grammarQuestions.length - 1 ? prev + 1 : 0));
+      };
+
+      return (
+        <div className="p-4">
+          <h2>Grammar + Reading</h2>
+          <div className="mb-4">
+            {currentQuestion.question}
+            <div className="mt-2">
+              {currentQuestion.options.map((option, index) => (
+                <label key={index} className="block">
+                  <input
+                    type="radio"
+                    name="grammarOption"
+                    value={option}
+                  />
+                  {option} {option === currentQuestion.correctAnswer ? '✔' : ''}
+                </label>
+              ))}
             </div>
-            <!-- Add more vocabulary items here -->
+          </div>
+          <h4>Explanation:</h4>
+          <p>{currentQuestion.explanation.en} ({currentQuestion.explanation.vn})</p>
+          <button onClick={handleNext} className="bg-blue-500 text-white px-4 py-2 rounded">Next Question</button>
         </div>
+      );
+    };
 
-        <!-- C. Grammar Focus -->
-        <div class="section">
-            <h2>C. Grammar Focus</h2>
-            <div class="grammar-item">
-                <p>Grammar Point: Passive Voice</p>
-                <p>Simple Explanation: (English) The subject of the sentence is acted upon by another agent.</p>
-                <p>Simple Explanation: (Việt) Chủ ngữ của câu bị tác động bởi một đối tượng khác.</p>
-                <p>Example: The first air-conditioning device was installed in a private house.</p>
-                <div>
-                    Rewrite the sentence using active voice:
-                    <input type="text" id="g1-rewrite" placeholder="Rewritten sentence">
-                </div>
-                <button onclick="checkGrammar('g1')">Check</button>
-                <div id="g1-feedback" class="feedback"></div>
+    const ReadingSection = () => {
+      const [currentQuestionIndex, setCurrentQuestionIndex] = React.useState(0);
+      const currentQuestion = readingQuestions[currentQuestionIndex];
+
+      const handleNext = () => {
+        setCurrentQuestionIndex((prev) => (prev < readingQuestions.length - 1 ? prev + 1 : 0));
+      };
+
+      return (
+        <div className="p-4">
+          <h2>Reading Comprehension</h2>
+          <div className="mb-4">
+            {currentQuestion.question}
+            <div className="mt-2">
+              {currentQuestion.options.map((option, index) => (
+                <label key={index} className="block">
+                  <input
+                    type="radio"
+                    name="readingOption"
+                    value={option}
+                  />
+                  {option} {option === currentQuestion.correctAnswer ? '✔' : ''}
+                </label>
+              ))}
             </div>
-            <!-- Add more grammar items here -->
+          </div>
+          <h4>Explanation:</h4>
+          <p>{currentQuestion.explanation.en} ({currentQuestion.explanation.vn})</p>
+          <button onClick={handleNext} className="bg-blue-500 text-white px-4 py-2 rounded">Next Question</button>
         </div>
+      );
+    };
 
-        <!-- D. Reading Comprehension (MCQ) -->
-        <div class="section">
-            <h2>D. Reading Comprehension</h2>
-            <!-- Remove the reading comprehension questions here -->
-        </div>
+    const SpeakingSection = ({ feedback, setFeedback }) => {
+      const [currentQuestionIndex, setCurrentQuestionIndex] = React.useState(0);
+      const currentQuestion = speakingData[currentQuestionIndex];
+      const [userAnswer, setUserAnswer] = React.useState('');
 
-        <!-- E. Speaking Practice -->
-        <div class="section">
-            <h2>E. Speaking Practice</h2>
-            <div class="question">
-                1. Summarize the passage in 3-5 sentences.
-                <textarea id="summary" placeholder="Write your summary here..."></textarea>
-            </div>
-            <button onclick="giveFeedback('summary')">Give Feedback</button>
-            <div id="summaryFeedback"></div>
+      const handleNext = () => {
+        setCurrentQuestionIndex((prev) => (prev < speakingData.length - 1 ? prev + 1 : 0));
+      };
 
-            <div class="question">
-                2. Do you like air conditioning? Why?
-                <textarea id="opinion1" placeholder="Write your opinion here..."></textarea>
-            </div>
-            <button onclick="giveFeedback('opinion1')">Give Feedback</button>
-            <div id="opinion1Feedback"></div>
-
-            <div class="question">
-                3. Is air conditioning important in Vietnam? Why?
-                <textarea id="opinion2" placeholder="Write your opinion here..."></textarea>
-            </div>
-            <button onclick="giveFeedback('opinion2')">Give Feedback</button>
-            <div id="opinion2Feedback"></div>
-        </div>
-
-        <!-- F. Speaking Feedback System -->
-        <div class="section">
-            <h2>F. Speaking Feedback</h2>
-            <!-- Insert speaking feedback content here -->
-        </div>
-
-    </div>
-
-    <script>
-        const passage = document.getElementById('passage');
-        let vietnameseSupportEnabled = false;
-
-        document.getElementById('toggleVietnamese').addEventListener('click', () => {
-            vietnameseSupportEnabled = !vietnameseSupportEnabled;
-            if (vietnameseSupportEnabled) {
-                passage.innerHTML += '<p>Translation goes here...</p>';
-            } else {
-                // Remove Vietnamese translation
-            }
+      const handleFeedback = () => {
+        // Simulate feedback
+        setFeedback({
+          fluency: "Good, but a bit short.",
+          grammarMistakes: "You missed past tense in sentence 2.",
+          vocabularySuggestions: "Try using 'comfortable' instead of 'good'.",
+          improvedAnswer: "I like air conditioning because it makes me comfortable in hot weather.",
+          explanationEn: "You need to use past tense or a full sentence.",
+          explanationVn: "Bạn cần dùng thì quá khứ hoặc câu đầy đủ hơn."
         });
+      };
 
-        function checkAnswers() {
-            let score = 0;
-            const resultsDiv = document.getElementById('results');
-            resultsDiv.innerHTML = '';
+      return (
+        <div className="p-4">
+          <h2>Speaking</h2>
+          <div className="mb-4">
+            {currentQuestion.question}
+          </div>
+          <div className="mb-4">
+            <textarea
+              value={userAnswer}
+              onChange={(e) => setUserAnswer(e.target.value)}
+              rows="5"
+              cols="30"
+              className="w-full p-2 border rounded"
+            />
+          </div>
+          <button onClick={handleFeedback} className="bg-blue-500 text-white px-4 py-2 rounded">Submit and Get Feedback</button>
+          <button onClick={handleNext} className="ml-2 bg-green-500 text-white px-4 py-2 rounded">Next Question</button>
+          {feedback && <FeedbackComponent feedback={feedback} />}
+        </div>
+      );
+    };
 
-            const questions = [
-                { id: 'q1', correct: 'D' },
-                { id: 'q2', correct: 'A' },
-                { id: 'q3', correct: 'C' },
-                { id: 'q4', correct: 'A' },
-                { id: 'q5', correct: 'D' }
-            ];
+    const FeedbackComponent = ({ feedback }) => {
+      return (
+        <div className="p-4 border rounded mt-4 bg-yellow-100">
+          <h3>Feedback:</h3>
+          <p><strong>Fluency:</strong> {feedback.fluency}</p>
+          <p><strong>Grammar Mistakes:</strong> {feedback.grammarMistakes}</p>
+          <p><strong>Vocabulary Suggestions:</strong> {feedback.vocabularySuggestions}</p>
+          <p><strong>Improved Answer:</strong> {feedback.improvedAnswer}</p>
+          <p><strong>Explanation:</strong> {feedback.explanationEn} ({feedback.explanationVn})</p>
+        </div>
+      );
+    };
 
-            questions.forEach((question, index) => {
-                const selectedOption = document.querySelector(`#${question.id}:checked`);
-                if (selectedOption && selectedOption.value === question.correct) {
-                    resultsDiv.innerHTML += `<p class="correct">Q${index + 1}: Correct</p>`;
-                    score++;
-                } else {
-                    resultsDiv.innerHTML += `<p class="feedback">Q${index + 1}: Incorrect</p>`;
-                }
-            });
+    const App = () => {
+      const [feedback, setFeedback] = React.useState(null);
 
-            resultsDiv.innerHTML += `<p>Your score: ${score} out of 5</p>`;
-        }
+      return (
+        <div className="app">
+          <header className="bg-blue-500 p-4 text-white text-center mb-4">
+            <h1>Air Conditioning English Learning App</h1>
+          </header>
+          <Tabs className="mt-4">
+            <TabList>
+              <Tab>Vocabulary</Tab>
+              <Tab>Grammar + Reading</Tab>
+              <Tab>Speaking</Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>
+                <VocabularySection />
+              </TabPanel>
+              <TabPanel>
+                <GrammarSection />
+              </TabPanel>
+              <TabPanel>
+                <SpeakingSection feedback={feedback} setFeedback={setFeedback} />
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+        </div>
+      );
+    };
 
-        function giveFeedback(inputId) {
-            const userInput = document.getElementById(inputId).value;
-            const feedbackDiv = document.getElementById(`${inputId}Feedback`);
-            feedbackDiv.innerHTML = '';
-
-            if (userInput.includes('air-conditioning')) {
-                feedbackDiv.innerHTML += '<p class="correct">Good! You mentioned air conditioning.</p>';
-            } else {
-                feedbackDiv.innerHTML += '<p class="feedback">You should mention air conditioning.</p>';
-            }
-
-            if (userInput.length < 10) {
-                feedbackDiv.innerHTML += '<p class="feedback">Your response is too short. Try to use more words.</p>';
-            } else {
-                feedbackDiv.innerHTML += '<p class="correct">Great! Your response is detailed.</p>';
-            }
-
-            // More feedback logic can be added here
-        }
-
-        function checkVocabulary(wordId) {
-            const userInput = document.getElementById(`${wordId}-translation`).value;
-            const feedbackDiv = document.getElementById(`${wordId}-feedback`);
-            if (userInput.toLowerCase() === 'hệ thống điều khiển nhiệt độ và độ ẩm' || userInput.toLowerCase() === 'air-conditioning system') {
-                feedbackDiv.innerHTML = '<p class="correct">Correct!</p>';
-            } else {
-                feedbackDiv.innerHTML = `<p class="feedback">Try again. Hint: ${wordId}</p>`;
-            }
-        }
-
-        function checkGrammar(grammerId) {
-            const userInput = document.getElementById(`${grammerId}-rewrite`).value;
-            const feedbackDiv = document.getElementById(`${grammerId}-feedback`);
-            if (userInput.toLowerCase() === 'A private house had the first air-conditioning device installed.') {
-                feedbackDiv.innerHTML = '<p class="correct">Correct!</p>';
-            } else {
-                feedbackDiv.innerHTML = `<p class="feedback">Try again. Hint: Passive voice to active voice</p>`;
-            }
-        }
-    </script>
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
 </body>
 </html>
