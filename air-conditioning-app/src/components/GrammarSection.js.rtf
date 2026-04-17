@@ -1,0 +1,45 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 import React, \{ useState \} from 'react';\
+import grammarQuestions from '../data/grammarQuestions';\
+\
+const GrammarSection = () => \{\
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);\
+  const currentQuestion = grammarQuestions[currentQuestionIndex];\
+\
+  const handleNext = () => \{\
+    setCurrentQuestionIndex((prev) => (prev < grammarQuestions.length - 1 ? prev + 1 : 0));\
+  \};\
+\
+  return (\
+    <div className="p-4">\
+      <h2>Grammar + Reading</h2>\
+      <div className="mb-4">\
+        \{currentQuestion.question\}\
+        <div className="mt-2">\
+          \{currentQuestion.options.map((option, index) => (\
+            <label key=\{index\} className="block">\
+              <input\
+                type="radio"\
+                name="grammarOption"\
+                value=\{option\}\
+              />\
+              \{option\} \{option === currentQuestion.correctAnswer ? '\uc0\u10004 ' : ''\}\
+            </label>\
+          ))\}\
+        </div>\
+      </div>\
+      <h4>Explanation:</h4>\
+      <p>\{currentQuestion.explanation.en\} (\{currentQuestion.explanation.vn\})</p>\
+      <button onClick=\{handleNext\}>Next Question</button>\
+    </div>\
+  );\
+\};\
+\
+export default GrammarSection;\
+}
