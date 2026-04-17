@@ -2,58 +2,216 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Air Conditioning - Interactive Learning</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Conditioning - Reading Practice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #f4f4f9;
+        }
+        .container {
+            width: 80%;
+            max-width: 600px;
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .question {
+            font-weight: bold;
+        }
+        .option {
+            margin-left: 20px;
+        }
+        .feedback {
+            color: red;
+            margin-top: 10px;
+        }
+        .correct {
+            color: green;
+        }
+    </style>
 </head>
 <body>
-
-<div class="container">
-
-    <h1>Air Conditioning - Interactive Learning for Beginners</h1>
-
-    <!-- Navigation -->
-    <div class="nav">
-        <button class="active" id="startReading">Start Reading</button>
-        <button id="vocabPractice">Practice Vocabulary</button>
-        <button id="grammarFocus">Do Grammar</button>
-        <button id="mcqQuestions">Answer Questions</button>
-        <button id="speakingPractice">Speaking Practice</button>
-    </div>
-
-    <!-- Reading Section -->
-    <div id="readingSection" class="content">
-        <h2>Air Conditioning</h2>
-        <p>Willis Carrier designed the first air-conditioning unit in 1902, just a year after graduating from Cornell University with a Masters in Engineering.</p>
-        <div class="toggle-switch">
-            <label>Toggle Vietnamese Support</label>
-            <input type="checkbox" id="toggleVietnamese">
+    <div class="container">
+        <div class="header">Air Conditioning - Reading Practice</div>
+        
+        <!-- A. Reading Section -->
+        <div class="section">
+            <button id="toggleVietnamese">Toggle Vietnamese Support</button>
+            <div id="passage" class="content">
+                <!-- Remove the reading passage here -->
+            </div>
         </div>
-        <!-- Add more text and Vietnamese explanations as needed -->
+
+        <!-- B. Vocabulary Practice -->
+        <div class="section">
+            <h2>B. Vocabulary Practice</h2>
+            <div class="vocabulary-item">
+                <p>Word: <span id="word1">air-conditioning</span></p>
+                <p>Meaning: (English) A system for controlling the temperature and humidity of a room or building.</p>
+                <p>Meaning: (Việt) Một hệ thống điều khiển nhiệt độ và độ ẩm trong một phòng hoặc tòa nhà.</p>
+                <p>Example: Willis Carrier designed the first air-conditioning unit in 1902.</p>
+                <div>
+                    Match word ↔ meaning:
+                    <input type="text" id="v1-translation" placeholder="Translation">
+                </div>
+                <button onclick="checkVocabulary('v1')">Check</button>
+                <div id="v1-feedback" class="feedback"></div>
+            </div>
+            <!-- Add more vocabulary items here -->
+        </div>
+
+        <!-- C. Grammar Focus -->
+        <div class="section">
+            <h2>C. Grammar Focus</h2>
+            <div class="grammar-item">
+                <p>Grammar Point: Passive Voice</p>
+                <p>Simple Explanation: (English) The subject of the sentence is acted upon by another agent.</p>
+                <p>Simple Explanation: (Việt) Chủ ngữ của câu bị tác động bởi một đối tượng khác.</p>
+                <p>Example: The first air-conditioning device was installed in a private house.</p>
+                <div>
+                    Rewrite the sentence using active voice:
+                    <input type="text" id="g1-rewrite" placeholder="Rewritten sentence">
+                </div>
+                <button onclick="checkGrammar('g1')">Check</button>
+                <div id="g1-feedback" class="feedback"></div>
+            </div>
+            <!-- Add more grammar items here -->
+        </div>
+
+        <!-- D. Reading Comprehension (MCQ) -->
+        <div class="section">
+            <h2>D. Reading Comprehension</h2>
+            <!-- Remove the reading comprehension questions here -->
+        </div>
+
+        <!-- E. Speaking Practice -->
+        <div class="section">
+            <h2>E. Speaking Practice</h2>
+            <div class="question">
+                1. Summarize the passage in 3-5 sentences.
+                <textarea id="summary" placeholder="Write your summary here..."></textarea>
+            </div>
+            <button onclick="giveFeedback('summary')">Give Feedback</button>
+            <div id="summaryFeedback"></div>
+
+            <div class="question">
+                2. Do you like air conditioning? Why?
+                <textarea id="opinion1" placeholder="Write your opinion here..."></textarea>
+            </div>
+            <button onclick="giveFeedback('opinion1')">Give Feedback</button>
+            <div id="opinion1Feedback"></div>
+
+            <div class="question">
+                3. Is air conditioning important in Vietnam? Why?
+                <textarea id="opinion2" placeholder="Write your opinion here..."></textarea>
+            </div>
+            <button onclick="giveFeedback('opinion2')">Give Feedback</button>
+            <div id="opinion2Feedback"></div>
+        </div>
+
+        <!-- F. Speaking Feedback System -->
+        <div class="section">
+            <h2>F. Speaking Feedback</h2>
+            <!-- Insert speaking feedback content here -->
+        </div>
+
     </div>
 
-    <!-- Vocabulary Practice -->
-    <div id="vocabPractice" class="content hidden">
-        <!-- Add vocabulary practice content here -->
-    </div>
+    <script>
+        const passage = document.getElementById('passage');
+        let vietnameseSupportEnabled = false;
 
-    <!-- Grammar Focus -->
-    <div id="grammarFocus" class="content hidden">
-        <!-- Add grammar focus content here -->
-    </div>
+        document.getElementById('toggleVietnamese').addEventListener('click', () => {
+            vietnameseSupportEnabled = !vietnameseSupportEnabled;
+            if (vietnameseSupportEnabled) {
+                passage.innerHTML += '<p>Translation goes here...</p>';
+            } else {
+                // Remove Vietnamese translation
+            }
+        });
 
-    <!-- Reading Comprehension (MCQ) -->
-    <div id="mcqQuestions" class="content hidden">
-        <!-- Add MCQ content here -->
-    </div>
+        function checkAnswers() {
+            let score = 0;
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
 
-    <!-- Speaking Practice -->
-    <div id="speakingPractice" class="content hidden">
-        <!-- Add speaking practice content here -->
-    </div>
+            const questions = [
+                { id: 'q1', correct: 'D' },
+                { id: 'q2', correct: 'A' },
+                { id: 'q3', correct: 'C' },
+                { id: 'q4', correct: 'A' },
+                { id: 'q5', correct: 'D' }
+            ];
 
-</div>
+            questions.forEach((question, index) => {
+                const selectedOption = document.querySelector(`#${question.id}:checked`);
+                if (selectedOption && selectedOption.value === question.correct) {
+                    resultsDiv.innerHTML += `<p class="correct">Q${index + 1}: Correct</p>`;
+                    score++;
+                } else {
+                    resultsDiv.innerHTML += `<p class="feedback">Q${index + 1}: Incorrect</p>`;
+                }
+            });
 
-<script src="script.js"></script>
+            resultsDiv.innerHTML += `<p>Your score: ${score} out of 5</p>`;
+        }
+
+        function giveFeedback(inputId) {
+            const userInput = document.getElementById(inputId).value;
+            const feedbackDiv = document.getElementById(`${inputId}Feedback`);
+            feedbackDiv.innerHTML = '';
+
+            if (userInput.includes('air-conditioning')) {
+                feedbackDiv.innerHTML += '<p class="correct">Good! You mentioned air conditioning.</p>';
+            } else {
+                feedbackDiv.innerHTML += '<p class="feedback">You should mention air conditioning.</p>';
+            }
+
+            if (userInput.length < 10) {
+                feedbackDiv.innerHTML += '<p class="feedback">Your response is too short. Try to use more words.</p>';
+            } else {
+                feedbackDiv.innerHTML += '<p class="correct">Great! Your response is detailed.</p>';
+            }
+
+            // More feedback logic can be added here
+        }
+
+        function checkVocabulary(wordId) {
+            const userInput = document.getElementById(`${wordId}-translation`).value;
+            const feedbackDiv = document.getElementById(`${wordId}-feedback`);
+            if (userInput.toLowerCase() === 'hệ thống điều khiển nhiệt độ và độ ẩm' || userInput.toLowerCase() === 'air-conditioning system') {
+                feedbackDiv.innerHTML = '<p class="correct">Correct!</p>';
+            } else {
+                feedbackDiv.innerHTML = `<p class="feedback">Try again. Hint: ${wordId}</p>`;
+            }
+        }
+
+        function checkGrammar(grammerId) {
+            const userInput = document.getElementById(`${grammerId}-rewrite`).value;
+            const feedbackDiv = document.getElementById(`${grammerId}-feedback`);
+            if (userInput.toLowerCase() === 'A private house had the first air-conditioning device installed.') {
+                feedbackDiv.innerHTML = '<p class="correct">Correct!</p>';
+            } else {
+                feedbackDiv.innerHTML = `<p class="feedback">Try again. Hint: Passive voice to active voice</p>`;
+            }
+        }
+    </script>
 </body>
 </html>
